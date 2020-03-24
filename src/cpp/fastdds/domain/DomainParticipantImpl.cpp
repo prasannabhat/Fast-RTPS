@@ -81,6 +81,7 @@ DomainParticipantImpl::DomainParticipantImpl(
     , rtps_participant_(nullptr)
     , participant_(dp)
     , listener_(listen)
+    , default_pub_qos_(PUBLISHER_QOS_DEFAULT)
 #pragma warning (disable : 4355 )
     , rtps_listener_(this)
 {
@@ -322,7 +323,7 @@ ReturnCode_t DomainParticipantImpl::assert_liveliness()
 }
 
 ReturnCode_t DomainParticipantImpl::set_default_publisher_qos(
-        const fastdds::dds::PublisherQos& qos)
+        const PublisherQos& qos)
 {
     if (&qos == &PUBLISHER_QOS_DEFAULT)
     {
@@ -337,7 +338,7 @@ ReturnCode_t DomainParticipantImpl::set_default_publisher_qos(
     return ReturnCode_t::RETCODE_INCONSISTENT_POLICY;
 }
 
-const fastdds::dds::PublisherQos& DomainParticipantImpl::get_default_publisher_qos() const
+const PublisherQos& DomainParticipantImpl::get_default_publisher_qos() const
 {
     return default_pub_qos_;
 }
