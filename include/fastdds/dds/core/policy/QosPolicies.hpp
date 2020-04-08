@@ -2444,6 +2444,55 @@ public:
     uint32_t listen_socket_buffer_size;
 };
 
+class RTPSEndpointQos
+{
+public:
+
+    RTPS_DllAPI RTPSEndpointQos()
+        : history_memory_policy(fastrtps::rtps::PREALLOCATED_MEMORY_MODE)
+        , user_defined_id(-1)
+        , entity_id(-1)
+    {
+    }
+
+    virtual RTPS_DllAPI ~RTPSEndpointQos() = default;
+
+    bool operator ==(
+            const RTPSEndpointQos& b) const
+    {
+        return (this->unicast_locator_list == b.unicast_locator_list) &&
+                (this->multicast_locator_list == b.multicast_locator_list) &&
+                (this->remote_locator_list == b.remote_locator_list) &&
+                (this->history_memory_policy == b.history_memory_policy) &&
+                (this->user_defined_id == b.user_defined_id) &&
+                (this->entity_id == b.entity_id);
+    }
+
+    inline void clear()
+    {
+        RTPSEndpointQos reset = RTPSEndpointQos();
+        std::swap(*this, reset);
+    }
+
+    //!Unicast locator list.
+    fastrtps::rtps::LocatorList_t unicast_locator_list;
+
+    //!Multicast locator list.
+    fastrtps::rtps::LocatorList_t multicast_locator_list;
+
+    //!Remote locator list.
+    fastrtps::rtps::LocatorList_t remote_locator_list;
+
+    //!Underlying History memory policy (Extension).
+    fastrtps::rtps::MemoryManagementPolicy_t history_memory_policy;
+
+    //!User Defined ID, used for StaticEndpointDiscovery (Extension).
+    int16_t user_defined_id;
+
+    //!Entity ID, to specify the EntityID of the enpoint (Extension).
+    int16_t entity_id;
+};
+
 } // namespace dds
 } // namespace fastdds
 } // namespace eprosima
