@@ -258,7 +258,7 @@ public:
      */
     const dds::domain::DomainParticipant& participant() const;
 
-    dds::domain::DomainParticipant* participant_;
+    const dds::domain::DomainParticipant* participant_;
 
 };
 
