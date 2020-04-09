@@ -36,6 +36,17 @@ TEST(SubscriberTests, GetSubscriberParticipant)
     ASSERT_EQ(subscriber->get_participant(), participant);
 }
 
+TEST(SubscriberTests, GetPSMSubscriberParticipant)
+{
+    ::dds::domain::DomainParticipant participant = ::dds::domain::DomainParticipant(0);
+    ::dds::sub::Subscriber subscriber = ::dds::sub::Subscriber(participant, SUBSCRIBER_QOS_DEFAULT);
+
+    ASSERT_EQ(subscriber.participant().delegate().get(), participant.delegate().get());
+}
+
+
+
+
 } // namespace dds
 } // namespace fastdds
 } // namespace eprosima
